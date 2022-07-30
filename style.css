@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.score-timer-container {
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: start;
+  /* /* flex-wrap: wrap; */
+}
+
+.high-score-list {
+  display: flex;
+  width: 50%;
+  border: solid black;
+  justify-content: start;
+}
+
+.timer {
+  display: flex;
+  width: 50%;
+  border: solid black;
+  justify-content: end;
+}
+
+.display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: solid black;
+}
+
+.questions {
+  display: flex;
+  justify-content: center;
+}
+
+.answers {
+  display: flex;
+  justify-content: center;
+}
