@@ -36,14 +36,14 @@ var renderCurrentQuestion = function () {
   header.textContent = currentQuestion.question;
   containerEl.appendChild(header);
 
-  var ulEl = document.createElement("ul");
+  var olEl = document.createElement("ol");
 
   for (var i = 0; i < currentQuestion.options.length; i++) {
     var liEl = document.createElement("li");
-    liEl.textContent = currentQuestion.options[i];
-    ulEl.appendChild(liEl);
+    liEl.textContent = `${i + 1}.` + currentQuestion.options[i];
+    olEl.appendChild(liEl);
   }
-  containerEl.appendChild(ulEl);
+  containerEl.appendChild(olEl);
 };
 
 //Function that tracks score
@@ -74,6 +74,8 @@ containerEl.addEventListener("click", function (event) {
     if (userGuess === currentQuestion.answer) {
       console.log("You guessed right!");
       // add score
+      highScoreEl.textContent = highScore;
+      highScore++;
       // increase song
       // play sound
     } else {
