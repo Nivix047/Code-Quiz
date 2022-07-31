@@ -8,14 +8,16 @@
     <title>Code-Quiz</title>
   </head>
   <body>
-    <div class="score-timer-container">
-      <div href="#" class="high-score-list">View high scores</div>
-      <div class="timer">Timer: 39</div>
-    </div>
-    <div class="display">
-      <div class="questions">Question Container</div>
-      <div class="answers">Answers Container</div>
-    </div>
+    <main id="content">
+      <h1>Welcome to my quiz</h1>
+      <section id="container"></section>
+      <div>High Score: <span id="high-score">0</span></div>
+      <div>
+        Timer:
+        <span id="timer">0</span>
+      </div>
+      <button id="start">Start Quiz</button>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>
