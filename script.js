@@ -54,8 +54,8 @@ var renderCurrentQuestion = function () {
   containerEl.appendChild(olEl);
 };
 
-//Highscore display // Need to make span elements and appendChild?
-var renderHighScore = function () {
+//Highscore display // Need to figure out where to call it // Also needs to clear h1 from main
+var renderGameoverDisplay = function () {
   containerEl.innerHTML = "";
   var header = document.createElement("h2");
   header.textContent = "All done!";
@@ -67,31 +67,55 @@ var renderHighScore = function () {
   initials.textContent = "Enter initials: ";
   var initialsSpan = document.createElement("span");
   var initialsInput = document.createElement("INPUT");
-
+  var submitInput = document.createElement("INPUT");
   initialsInput.setAttribute("type", "text");
+  submitInput.setAttribute("type", "submit");
 
   initialsSpan.appendChild(initialsInput);
+  initialsSpan.appendChild(submitInput);
   initials.appendChild(initialsSpan);
   finalScore.appendChild(finalScoreSpan);
+
   containerEl.appendChild(header);
   containerEl.appendChild(finalScore);
   containerEl.appendChild(initials);
 };
 
+// Highscore list for the container // Need to figure out where to call it
+var renderHighScoreslist = function () {
+  containerEl.innerHTML = "";
+  var header = document.createElement("h2");
+  header.textContent = "High scores";
+  var list = document.createElement("INPUT");
+  list.setAttribute("type", "text");
+  var submitBtn = document.createElement("div");
+  var resetBtn = document.createElement("BUTTON");
+  resetBtn.textContent = "Go back";
+  var clearHighScoreBtn = document.createElement("BUTTON");
+  clearHighScoreBtn.textContent = "Clear high scores";
+  submitBtn.appendChild(resetBtn);
+  submitBtn.appendChild(clearHighScoreBtn);
+
+  containerEl.appendChild(header);
+  containerEl.appendChild(list);
+  containerEl.appendChild(submitBtn);
+};
+
 startBtn.addEventListener("click", function () {
   renderCurrentQuestion();
-
+  // renderHighScoreslist();
+  // renderGameoverDisplay();
   timerEl.textContent = timer;
 
-  if (timer === 0) {
-    // can also just change it to textContent = 0
-    clearInterval(timerInterval);
-    containerEl.innerHTML = "";
-    // change DOM to say game over
-    var header = document.createElement("h2");
-    header.textContent = "Game Over";
-    containerEl.appendChild(header);
-  }
+  // if (timer === 0) {
+  //   // can also just change it to textContent = 0
+  //   clearInterval(timerInterval);
+  //   containerEl.innerHTML = "";
+  //   // change DOM to say game over
+  //   var header = document.createElement("h2");
+  //   header.textContent = "Game Over";
+  //   containerEl.appendChild(header);
+  // }
 });
 
 containerEl.addEventListener("click", function (event) {
