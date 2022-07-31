@@ -3,11 +3,19 @@ var startBtn = document.querySelector("#start");
 var timerEl = document.querySelector("#timer");
 var containerEl = document.querySelector("#container");
 var highScoreEl = document.querySelector("#high-score");
+// highScore display - Does it need to be global?
+highScoreEl.textContent = highScore;
 
 var highScore = 0;
 var timer = 75;
 var currentQuestionIndex = 0;
 var timerInterval;
+
+//List of questions:
+//Win condition
+//Loss condition
+//High Score href // high score
+//Using local storage to set and clear items?
 
 var questions = [
   {
@@ -40,14 +48,35 @@ var renderCurrentQuestion = function () {
 
   for (var i = 0; i < currentQuestion.options.length; i++) {
     var liEl = document.createElement("li");
-    liEl.textContent = `${i + 1}.` + currentQuestion.options[i];
+    liEl.textContent = currentQuestion.options[i];
     olEl.appendChild(liEl);
   }
   containerEl.appendChild(olEl);
 };
 
-//Function that tracks score
-highScoreEl.textContent = highScore;
+//Highscore display // Need to make span elements and appendChild?
+var renderHighScore = function () {
+  containerEl.innerHTML = "";
+  var header = document.createElement("h2");
+  header.textContent = "All done!";
+  var finalScore = document.createElement("div");
+  finalScore.textContent = "Your final score is: ";
+  var finalScoreSpan = document.createElement("span");
+  finalScoreSpan.textContent = highScore;
+  var initials = document.createElement("div");
+  initials.textContent = "Enter initials: ";
+  var initialsSpan = document.createElement("span");
+  var initialsInput = document.createElement("INPUT");
+
+  initialsInput.setAttribute("type", "text");
+
+  initialsSpan.appendChild(initialsInput);
+  initials.appendChild(initialsSpan);
+  finalScore.appendChild(finalScoreSpan);
+  containerEl.appendChild(header);
+  containerEl.appendChild(finalScore);
+  containerEl.appendChild(initials);
+};
 
 startBtn.addEventListener("click", function () {
   renderCurrentQuestion();
@@ -55,6 +84,7 @@ startBtn.addEventListener("click", function () {
   timerEl.textContent = timer;
 
   if (timer === 0) {
+    // can also just change it to textContent = 0
     clearInterval(timerInterval);
     containerEl.innerHTML = "";
     // change DOM to say game over
