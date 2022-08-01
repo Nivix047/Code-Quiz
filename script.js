@@ -35,9 +35,25 @@ var questions = [
   },
 ];
 
+//staring timer
+
+function startTimer() {
+  timerEl.textContent = timer;
+
+  timerInterval = setInterval(function () {
+    timer--;
+    timerEl.textContent = timer;
+
+    if (timer <= 0) {
+      endGame();
+    }
+  }, 1000);
+}
+
 //Function that creates the questions and answers
 var renderCurrentQuestion = function () {
   containerEl.innerHTML = "";
+  console.log(currentQuestionIndex);
   var currentQuestion = questions[currentQuestionIndex];
 
   var header = document.createElement("h2");
@@ -101,21 +117,22 @@ var renderHighScoreslist = function () {
   containerEl.appendChild(submitBtn);
 };
 
+function endGame() {
+  // can also just change it to textContent = 0
+  clearInterval(timerInterval);
+  timerEl.textContent = 0;
+  containerEl.innerHTML = "";
+  // change DOM to say game over
+  var header = document.createElement("h2");
+  header.textContent = "Game Over";
+  containerEl.appendChild(header);
+}
+
 startBtn.addEventListener("click", function () {
+  startTimer();
   renderCurrentQuestion();
   // renderHighScoreslist();
   // renderGameoverDisplay();
-  timerEl.textContent = timer;
-
-  // if (timer === 0) {
-  //   // can also just change it to textContent = 0
-  //   clearInterval(timerInterval);
-  //   containerEl.innerHTML = "";
-  //   // change DOM to say game over
-  //   var header = document.createElement("h2");
-  //   header.textContent = "Game Over";
-  //   containerEl.appendChild(header);
-  // }
 });
 
 containerEl.addEventListener("click", function (event) {
@@ -128,8 +145,8 @@ containerEl.addEventListener("click", function (event) {
     if (userGuess === currentQuestion.answer) {
       console.log("You guessed right!");
       // add score
-      highScoreEl.textContent = highScore;
       highScore++;
+      highScoreEl.textContent = highScore;
       // increase song
       // play sound
     } else {
@@ -137,9 +154,30 @@ containerEl.addEventListener("click", function (event) {
       timer--;
     }
     // Need if else statement so it doesnt go to questions that doesn't exist
-    currentQuestionIndex++;
-    renderCurrentQuestion();
+    console.log(currentQuestionIndex, questions.length);
+    // Index starts at 0 and lenght starts at 1. Needs to match.
+    if (currentQuestionIndex == questions.length - 1) {
+      console.log("equal");
+      //end of game
+      endGame();
+    } else {
+      console.log("not equal");
+      currentQuestionIndex++;
+      renderCurrentQuestion();
+    }
   }
 });
 
 console.log(questions[0].question);
+
+//hide start quiz btn
+//display the leadership board to fill out inititials
+//create a click event, when clicked, store initials and highscore as object in local storage
+//hint: create an array, push that object to array, save whole array to local storage
+
+// var user = {
+//   username: initials,
+//   highscore: highscore
+// }
+// array.push(user)
+// localStorage.setItem(keyname, array)
