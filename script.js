@@ -3,40 +3,43 @@ var startBtn = document.querySelector("#start");
 var timerEl = document.querySelector("#timer");
 var containerEl = document.querySelector("#container");
 var highScoreEl = document.querySelector("#high-score");
-// highScore display - Does it need to be global?
-highScoreEl.textContent = highScore;
+// highScoreEl.textContent = highScore;
+var hideStartBtn = function () {
+  document.getElementById("start").style.display = "none";
+};
+var hideHeader = function () {
+  document.getElementById("header").style.display = "none";
+};
 
 var highScore = 0;
-var timer = 75;
+var timer = 15;
 var currentQuestionIndex = 0;
 var timerInterval;
 
-//List of questions:
-//Win condition
-//Loss condition
-//High Score href // high score
-//Using local storage to set and clear items?
-
 var questions = [
   {
-    question: "What is the color of the sky",
-    options: ["blue", "orange", "red", "green"],
-    answer: "blue",
+    question: "Commonly used data types DO Not Include:",
+    options: ["strings", "booleans", "alerts", "numbers"],
+    answer: "alerts",
   },
   {
-    question: "what car is best?",
-    options: ["audi", "ford", "kia soul", "gmc"],
-    answer: "kia soul",
+    question: "The condition in an if/else statement is enclosed with______.",
+    options: ["quotes", "curly brackets", "parenthesis", "square brackets"],
+    answer: "parenthesis",
   },
   {
-    question: "what langauge is best?",
-    options: ["java", "c++", "javascript", "python"],
-    answer: "javascript",
+    question: "Arrays in JavaScript can be used to store______.",
+    options: [
+      "numbers and strings",
+      "other arrays",
+      "booleans",
+      "all of the above",
+    ],
+    answer: "all of the above",
   },
 ];
 
-//staring timer
-
+//starting timer
 function startTimer() {
   timerEl.textContent = timer;
 
@@ -50,7 +53,7 @@ function startTimer() {
   }, 1000);
 }
 
-//Function that creates the questions and answers
+//Function that creates the ol li
 var renderCurrentQuestion = function () {
   containerEl.innerHTML = "";
   console.log(currentQuestionIndex);
@@ -68,9 +71,10 @@ var renderCurrentQuestion = function () {
     olEl.appendChild(liEl);
   }
   containerEl.appendChild(olEl);
+  hideStartBtn();
 };
 
-//Highscore display // Need to figure out where to call it // Also needs to clear h1 from main
+//Highscore display
 var renderGameoverDisplay = function () {
   containerEl.innerHTML = "";
   var header = document.createElement("h2");
@@ -83,21 +87,34 @@ var renderGameoverDisplay = function () {
   initials.textContent = "Enter initials: ";
   var initialsSpan = document.createElement("span");
   var initialsInput = document.createElement("INPUT");
-  var submitInput = document.createElement("INPUT");
   initialsInput.setAttribute("type", "text");
-  submitInput.setAttribute("type", "submit");
+  initialsInput.setAttribute("id", "input-value");
+  var submitInputBtn = document.createElement("BUTTON");
+  submitInputBtn.textContent = "Submit";
 
   initialsSpan.appendChild(initialsInput);
-  initialsSpan.appendChild(submitInput);
+  initialsSpan.appendChild(submitInputBtn);
   initials.appendChild(initialsSpan);
   finalScore.appendChild(finalScoreSpan);
 
   containerEl.appendChild(header);
   containerEl.appendChild(finalScore);
   containerEl.appendChild(initials);
+
+  //Storing objects in storage and JSON
+  // Why can't I put .value in this
+  var initialsInputValue = document.getElementById("input-value");
+
+  submitInputBtn.addEventListener("click", function () {
+    console.log(initialsInputValue.value);
+    console.log(highScore);
+    localStorage.setItem("initials", JSON.stringify(initialsInputValue.value));
+    localStorage.setItem("score", JSON.stringify(highScore));
+    renderHighScoreslist();
+  });
 };
 
-// Highscore list for the container // Need to figure out where to call it
+// Highscore list for the container after entering initials
 var renderHighScoreslist = function () {
   containerEl.innerHTML = "";
   var header = document.createElement("h2");
@@ -115,24 +132,33 @@ var renderHighScoreslist = function () {
   containerEl.appendChild(header);
   containerEl.appendChild(list);
   containerEl.appendChild(submitBtn);
+
+  resetBtn.addEventListener("click", function () {
+    window.location.href = "index.html";
+  });
+
+  clearHighScoreBtn.addEventListener("click", function () {
+    // clear score
+  });
 };
 
 function endGame() {
-  // can also just change it to textContent = 0
   clearInterval(timerInterval);
   timerEl.textContent = 0;
   containerEl.innerHTML = "";
   // change DOM to say game over
-  var header = document.createElement("h2");
-  header.textContent = "Game Over";
-  containerEl.appendChild(header);
+  renderGameoverDisplay();
+  hideStartBtn();
 }
 
+highScoreEl.addEventListener("click", function (event) {
+  renderHighScoreslist();
+});
+
 startBtn.addEventListener("click", function () {
-  startTimer();
+  // startTimer();
   renderCurrentQuestion();
-  // renderHighScoreslist();
-  // renderGameoverDisplay();
+  hideHeader();
 });
 
 containerEl.addEventListener("click", function (event) {
@@ -146,7 +172,7 @@ containerEl.addEventListener("click", function (event) {
       console.log("You guessed right!");
       // add score
       highScore++;
-      highScoreEl.textContent = highScore;
+      // highScoreEl.textContent = highScore;
       // increase song
       // play sound
     } else {

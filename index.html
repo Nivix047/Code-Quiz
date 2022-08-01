@@ -9,14 +9,23 @@
   </head>
   <body>
     <main id="content">
-      <h1>Welcome to my quiz</h1>
-      <section id="container"></section>
-      <div>High Score <span id="high-score"></span></div>
-      <div>
-        Timer:
-        <span id="timer">0</span>
+      <nav id="nav">
+        <div id="high-score">View High Score</div>
+        <div id="timer-container">
+          Timer:
+          <span id="timer">15</span>
+        </div>
+      </nav>
+      <h1 id="header">Coding Quiz Challenge</h1>
+      <section id="container">
+        Try to answer the following code-related questions within the time
+        limit.<br />
+        Keep in mind that incorrect answers will penalize your score/time <br />
+        by ten seconds!
+      </section>
+      <div id="button-container">
+        <button id="start">Start Quiz</button>
       </div>
-      <button id="start">Start Quiz</button>
     </main>
     <script src="script.js"></script>
   </body>

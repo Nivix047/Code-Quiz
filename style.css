@@ -6,10 +6,53 @@
   margin: 0;
 }
 
+#content {
+  text-align: center;
+}
+
+#nav {
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+  margin: 30px;
+}
+
+#header {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#container {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#high-score {
+  display: flex;
+  width: 50%;
+  justify-content: start;
+  color: rgb(227, 89, 220);
+}
+
+#high-score:hover {
+  cursor: pointer;
+}
+
+#timer-container {
+  display: flex;
+  width: 50%;
+  justify-content: end;
+}
+
+ol {
+  text-align: -webkit-center;
+}
+
 ol li {
-  background-color: rgb(51, 4, 51);
+  background-color: navy;
   border-radius: 15px;
-  width: 30%;
+  width: 10%;
+  height: 1.5em;
   margin: 10px;
   color: white;
 }
@@ -19,39 +62,9 @@ ol li:hover {
   cursor: pointer;
 }
 
-/* .score-timer-container {
-  display: flex;
-  justify-content: start;
-
-} */
-
-/* .high-score-list {
-  display: flex;
-  width: 50%;
-  border: solid black;
-  justify-content: start;
-} */
-
-/* .timer {
-  display: flex;
-  width: 50%;
-  border: solid black;
-  justify-content: end;
-} */
-
-/* .display {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border: solid black;
-} */ */
-
-/* .questions {
-  display: flex;
-  justify-content: center;
-}
-
-.answers {
-  display: flex;
-  justify-content: center;
+#start {
+  width: 5%;
+  border-radius: 5px;
+  background-color: navy;
+  color: white;
 }
