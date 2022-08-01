@@ -119,6 +119,7 @@ var renderHighScoreslist = function () {
   containerEl.innerHTML = "";
   var header = document.createElement("h2");
   header.textContent = "High scores";
+  // Need to create a list to display score stored in browser?
   var list = document.createElement("INPUT");
   list.setAttribute("type", "text");
   var submitBtn = document.createElement("div");
@@ -156,7 +157,7 @@ highScoreEl.addEventListener("click", function (event) {
 });
 
 startBtn.addEventListener("click", function () {
-  // startTimer();
+  startTimer();
   renderCurrentQuestion();
   hideHeader();
 });
