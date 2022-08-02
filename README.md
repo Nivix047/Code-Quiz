@@ -4,6 +4,8 @@
 
 Created a quiz from scratch using HTML, CSS, and JavaScript. The focus of this project was to gain a good understanding of how DOM and API works and how JavaScript makes web pages dynamic.
 
+URL of deployed app: https://nivix047.github.io/Code-Quiz/
+
 ## Sreenshots
 
 ![Screen Shot 2022-08-01 at 11 33 48 PM](https://user-images.githubusercontent.com/97267318/182307979-a119dd0a-64c4-440d-9bc4-9c3755b0ee9f.png)
