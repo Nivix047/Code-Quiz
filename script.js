@@ -15,6 +15,9 @@ var highScore = 0;
 var timer = 15;
 var currentQuestionIndex = 0;
 var timerInterval;
+var scores = JSON.parse(localStorage.getItem("scores")) || [];
+
+console.log(typeof scores);
 
 var questions = [
   {
@@ -108,20 +111,38 @@ var renderGameoverDisplay = function () {
   submitInputBtn.addEventListener("click", function () {
     console.log(initialsInputValue.value);
     console.log(highScore);
-    localStorage.setItem("initials", JSON.stringify(initialsInputValue.value));
-    localStorage.setItem("score", JSON.stringify(highScore));
+
+    var userScore = {
+      initials: initialsInputValue.value,
+      highScore: highScore,
+    };
+
+    console.log(userScore);
+
+    scores.push(userScore);
+
+    localStorage.setItem("scores", JSON.stringify(scores));
+
     renderHighScoreslist();
   });
 };
 
 // Highscore list for the container after entering initials
 var renderHighScoreslist = function () {
+  // clear existing high scores in html
+  // document.querySelector('#highscores-list').innerHTML = '';
+
+  for (var i = 0; i < scores.length; i++) {
+    console.log(scores[i]);
+
+    var score = document.createElement("p");
+    score.textContent = `${scores[i].initials}: ${scores[i].highScore}`;
+    contentEl.appendChild(score);
+  }
+
   containerEl.innerHTML = "";
   var header = document.createElement("h2");
   header.textContent = "High scores";
-  // Need to create a list to display score stored in browser?
-  var list = document.createElement("INPUT");
-  list.setAttribute("type", "text");
   var submitBtn = document.createElement("div");
   var resetBtn = document.createElement("BUTTON");
   resetBtn.textContent = "Go back";
@@ -131,7 +152,7 @@ var renderHighScoreslist = function () {
   submitBtn.appendChild(clearHighScoreBtn);
 
   containerEl.appendChild(header);
-  containerEl.appendChild(list);
+  // containerEl.appendChild(score);
   containerEl.appendChild(submitBtn);
 
   resetBtn.addEventListener("click", function () {
@@ -140,6 +161,8 @@ var renderHighScoreslist = function () {
 
   clearHighScoreBtn.addEventListener("click", function () {
     // clear score
+    // renderHighScoreslist();
+    // localStorage.clear();
   });
 };
 
@@ -152,8 +175,10 @@ function endGame() {
   hideStartBtn();
 }
 
-highScoreEl.addEventListener("click", function (event) {
+highScoreEl.addEventListener("click", function () {
   renderHighScoreslist();
+  hideStartBtn();
+  hideHeader();
 });
 
 startBtn.addEventListener("click", function () {
@@ -171,16 +196,13 @@ containerEl.addEventListener("click", function (event) {
 
     if (userGuess === currentQuestion.answer) {
       console.log("You guessed right!");
-      // add score
       highScore++;
-      // highScoreEl.textContent = highScore;
       // increase song
       // play sound
     } else {
       console.log("You guessed wrong");
       timer--;
     }
-    // Need if else statement so it doesnt go to questions that doesn't exist
     console.log(currentQuestionIndex, questions.length);
     // Index starts at 0 and lenght starts at 1. Needs to match.
     if (currentQuestionIndex == questions.length - 1) {
@@ -196,15 +218,3 @@ containerEl.addEventListener("click", function (event) {
 });
 
 console.log(questions[0].question);
-
-//hide start quiz btn
-//display the leadership board to fill out inititials
-//create a click event, when clicked, store initials and highscore as object in local storage
-//hint: create an array, push that object to array, save whole array to local storage
-
-// var user = {
-//   username: initials,
-//   highscore: highscore
-// }
-// array.push(user)
-// localStorage.setItem(keyname, array)
