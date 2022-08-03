@@ -17,7 +17,7 @@ var currentQuestionIndex = 0;
 var timerInterval;
 var scores = JSON.parse(localStorage.getItem("scores")) || [];
 
-console.log(typeof scores);
+console.log(scores);
 
 var questions = [
   {
@@ -121,6 +121,7 @@ var renderGameoverDisplay = function () {
 
     scores.push(userScore);
 
+    // Storing data into browser with JSON
     localStorage.setItem("scores", JSON.stringify(scores));
 
     renderHighScoreslist();
@@ -135,9 +136,19 @@ var renderHighScoreslist = function () {
   for (var i = 0; i < scores.length; i++) {
     console.log(scores[i]);
 
+    // Trying to make a sortable list to only display the highest score
+    sortScores = [];
+    sortScores.push(scores);
+    sortScores.sort(function (a, b) {
+      return b[i].highScore - a[i].highScore;
+    });
+
+    console.log(sortScores);
+
     var score = document.createElement("p");
     score.textContent = `${scores[i].initials}: ${scores[i].highScore}`;
-    contentEl.appendChild(score);
+    // contentEl.appendChild(score);
+    console.log(score);
   }
 
   containerEl.innerHTML = "";
@@ -152,7 +163,7 @@ var renderHighScoreslist = function () {
   submitBtn.appendChild(clearHighScoreBtn);
 
   containerEl.appendChild(header);
-  // containerEl.appendChild(score);
+  containerEl.appendChild(score);
   containerEl.appendChild(submitBtn);
 
   resetBtn.addEventListener("click", function () {
@@ -160,9 +171,10 @@ var renderHighScoreslist = function () {
   });
 
   clearHighScoreBtn.addEventListener("click", function () {
+    console.log("test");
     // clear score
-    // renderHighScoreslist();
-    // localStorage.clear();
+    score.textContent = "";
+    localStorage.clear();
   });
 };
 
@@ -175,6 +187,7 @@ function endGame() {
   hideStartBtn();
 }
 
+// View High Score
 highScoreEl.addEventListener("click", function () {
   renderHighScoreslist();
   hideStartBtn();
