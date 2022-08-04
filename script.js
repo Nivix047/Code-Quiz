@@ -130,19 +130,15 @@ var renderGameoverDisplay = function () {
 
 // Highscore list for the container after entering initials
 var renderHighScoreslist = function () {
-  // clear existing high scores in html
-  // document.querySelector('#highscores-list').innerHTML = '';
-
-  // Trying to make a sortable list to only display the highest score
-  // sortScores = [];
   //Spread syntax for future reference
+  // sortScores = [];
   // sortScores.push(...scores)
   scores.sort(function (a, b) {
     return b.highScore - a.highScore;
   });
 
   console.log(scores[0]);
-
+  // i < scores.length the run through the list if I want to create a list of high score
   for (var i = 0; i === 0; i++) {
     console.log(scores[i]);
 
@@ -166,11 +162,11 @@ var renderHighScoreslist = function () {
   containerEl.appendChild(header);
   containerEl.appendChild(score);
   containerEl.appendChild(submitBtn);
-
+  // Go back button
   resetBtn.addEventListener("click", function () {
     window.location.href = "index.html";
   });
-
+  // Clear score button
   clearHighScoreBtn.addEventListener("click", function () {
     console.log("test");
     // clear score
@@ -183,24 +179,26 @@ function endGame() {
   clearInterval(timerInterval);
   timerEl.textContent = 0;
   containerEl.innerHTML = "";
-  // change DOM to say game over
+  // Show game over
   renderGameoverDisplay();
   hideStartBtn();
 }
 
-// View High Score
+// View High Score button
 highScoreEl.addEventListener("click", function () {
   renderHighScoreslist();
   hideStartBtn();
   hideHeader();
 });
 
+// Game start button
 startBtn.addEventListener("click", function () {
   startTimer();
   renderCurrentQuestion();
   hideHeader();
 });
 
+// Question select clicks
 containerEl.addEventListener("click", function (event) {
   if (event.target.matches("li")) {
     timerEl.textContent = timer;
