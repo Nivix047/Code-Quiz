@@ -133,17 +133,18 @@ var renderHighScoreslist = function () {
   // clear existing high scores in html
   // document.querySelector('#highscores-list').innerHTML = '';
 
-  for (var i = 0; i < scores.length; i++) {
+  // Trying to make a sortable list to only display the highest score
+  // sortScores = [];
+  //Spread syntax for future reference
+  // sortScores.push(...scores)
+  scores.sort(function (a, b) {
+    return b.highScore - a.highScore;
+  });
+
+  console.log(scores[0]);
+
+  for (var i = 0; i === 0; i++) {
     console.log(scores[i]);
-
-    // Trying to make a sortable list to only display the highest score
-    sortScores = [];
-    sortScores.push(scores);
-    sortScores.sort(function (a, b) {
-      return b[i].highScore - a[i].highScore;
-    });
-
-    console.log(sortScores);
 
     var score = document.createElement("p");
     score.textContent = `${scores[i].initials}: ${scores[i].highScore}`;
